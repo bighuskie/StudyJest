@@ -14,13 +14,20 @@
 <script>
 import Header from '@/layouts/TodoList/components/Header.vue'
 import UndoList from '@/layouts/TodoList/components/UndoList.vue'
-
+import axios from 'axios'
 export default {
   name: 'TodoList',
   data () {
     return {
       undoList: []
     }
+  },
+  mounted () {
+    axios.get('/fetchUndoList.json').then(res => {
+      this.undoList = res.data
+    }).catch(e => {
+      console.error('请求失败！')
+    })
   },
   methods: {
     addUndoList (inputValue) {
